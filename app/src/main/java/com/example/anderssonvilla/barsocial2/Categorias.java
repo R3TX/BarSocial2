@@ -1,17 +1,31 @@
 package com.example.anderssonvilla.barsocial2;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Categorias extends ActionBarActivity {
 
+    private ListView categorias;
+    String [] nameCategorias = new String[]{"Restaurante", "Bar", "Cafeteria"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorias);
+        categorias = (ListView) findViewById(R.id.listViewCategorias);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, nameCategorias);
+        categorias.setAdapter(adapter);
+        categorias.setOnItemClickListener(mMessageClickedHandler);
     }
 
 
@@ -36,4 +50,20 @@ public class Categorias extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    private AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
+        public void onItemClick(AdapterView<?> parent, View view,
+                                int position, long id) {
+            TextView textView = (TextView) view.findViewById(android.R.id.text1);
+            String text = textView.getText().toString();
+            // String text = (getItemAtPosition(position));
+            Intent intent = new Intent(Categorias.this, Lugares.class);
+            intent.putExtra("categoria", text);
+            Toast.makeText(getApplicationContext(),
+                    "Click ListItem Number " + position+" "+text, Toast.LENGTH_LONG)
+                    .show();
+            startActivity(intent);
+        }
+
+
+    };
 }
