@@ -28,7 +28,12 @@ ListView lugaresAMostrar;
         lugaresAMostrar= (ListView)findViewById(R.id.listViewLugares);
         Bundle extras = getIntent().getExtras();
         String value1  =extras.getString("categoria");
-        getListaLugaresPorCategoria(value1);
+        getSupportActionBar().setTitle(value1);
+        try {
+            getListaLugaresPorCategoria(value1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -53,65 +58,22 @@ ListView lugaresAMostrar;
 
         return super.onOptionsItemSelected(item);
     }
-    private void getListaLugaresPorCategoria(String categoria) {
-        ParseObject GameScore = ParseObject.create("Lugar");
-        ParseQuery<ParseObject> tumama= ParseQuery.getQuery(GameScore.getClassName());
-        LugaresAdapter adapter = new LugaresAdapter(tumama.getFirst(), Lugares.this);
-        tumama.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> parseObjects, ParseException e) {
-                System.out.println("joder..... "+ parseObjects.size());
-            }
-        });
-       /* ParseQuery<ParseObject> query = ParseQuery.getQuery("Lugar");
-       // query.whereEqualTo("Categoria", categoria);
-        //query.whereContains("Categoria", categoria);
+    private void getListaLugaresPorCategoria(String categoria) throws ParseException {
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lugar");
+        query.whereEqualTo("Categoria", categoria);
         final ProgressDialog dialog = ProgressDialog.show(Lugares.this, "Buscando "+ categoria, null, true, true);
         query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> parseObjects, ParseException e) {
-                System.out.println("mi tamaño es " + parseObjects.size());
-            }
-        });
-
-
-
-
-
-
-
-
-        /*new FindCallback<ParseObject>() {
-            public void aVoid
             public void done(List<ParseObject> lugares, ParseException e) {
-                System.out.println("entre al done");
-             /*   if(e!=null){
-                    System.out.println(categoria);
-                    System.out.println("asd");
-                    System.out.println("s");
-                    System.out.println("f");
-                    System.out.println("d");
-                    System.out.println("g");
-                    System.out.println("joder pero que pasa "+e.getMessage()+"  " +e.getCause() );
-                    System.out.println("r");
-                    System.out.println("h");
-                    System.out.println("3");
-                    System.out.println("3");
-                    System.out.println("5");
-                    return;
-                }else {
-                if (lugares.isEmpty()) {
-                    Toast.makeText(Lugares.this, "No has agregado ejrcicios para este dia", Toast.LENGTH_SHORT).show();
-                }
-                    System.out.println("Voy a dismmis");
+                if(e==null){
                     dialog.dismiss();
-
-                    System.out.println("mi tamaño es " + lugares.size());
-                    LugaresAdapter adapter = new LugaresAdapter(lugares, Lugares.this);
+                    LugaresAdapter adapter= new LugaresAdapter(lugares, Lugares.this);
                     lugaresAMostrar.setAdapter(adapter);
                     lugaresAMostrar.setOnItemClickListener(adapter);
-               // }
+                }else{
+                    System.out.println("no di " + e.getMessage());
+                }
             }
-        });*/
+        });
     }
 }

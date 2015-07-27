@@ -51,16 +51,16 @@ public class LugaresAdapter extends BaseAdapter implements AdapterView.OnItemCli
             convertView = inflater.inflate(R.layout.item_lugares, null);
         }
         TextView nombreLugar = (TextView) convertView.findViewById(R.id.nombre);
-        ParseObject lugar = lugares.get(position).getParseObject("Lugar");
+        ParseObject lugar = lugares.get(position);
         nombreLugar.setText(lugar.getString("Name"));
         return convertView;
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Intent intent = new Intent(this.context, Lugar.class);
+        Intent intent = new Intent(context, Lugar.class);
         ParseObject lugar = lugares.get(i);
-        intent.putExtra("IDLugar", lugar.getString("objectId"));
+        intent.putExtra("IDLugar", lugar.getObjectId());
         context.startActivity(intent);
     }
 }

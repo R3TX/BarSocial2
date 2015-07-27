@@ -18,13 +18,15 @@ public class ParseApp extends Application {
     public void onCreate() {
         super.onCreate();
         //(this,aplicationID,clientkey)
-       Parse.enableLocalDatastore(this);
+        //Parse.enableLocalDatastore(this);
         Parse.initialize(this, "ktcd0GdngHSX6N2I4czCPD7ZJ7RmMwk6FKJfSVmh", "T0z8hJBtGFi5WJAlUt4cLQY3l6JxwPGSSNVAxukc");
 
-        ParseUser.enableAutomaticUser();
-        ParseACL defauAcl=new ParseACL();
-        defauAcl.setPublicReadAccess(true);
-        ParseACL.setDefaultACL(defauAcl,true);
+        //ParseUser.enableAutomaticUser();
+       // ParseACL defauAcl=new ParseACL();
+       // defauAcl.setPublicReadAccess(true);
+       // ParseACL.setDefaultACL(defauAcl,true);
+
+
     }
 
 }
