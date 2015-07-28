@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.anderssonvilla.barsocial2.Lugar;
-import com.example.anderssonvilla.barsocial2.Lugares;
 import com.example.anderssonvilla.barsocial2.R;
 import com.parse.ParseObject;
 
