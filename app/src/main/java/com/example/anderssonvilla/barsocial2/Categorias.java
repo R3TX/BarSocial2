@@ -58,9 +58,6 @@ public class Categorias extends ActionBarActivity {
             // String text = (getItemAtPosition(position));
             Intent intent = new Intent(Categorias.this, Lugares.class);
             intent.putExtra("categoria", text);
-            Toast.makeText(getApplicationContext(),
-                    "Click ListItem Number " + position+" "+text, Toast.LENGTH_LONG)
-                    .show();
             startActivity(intent);
         }
 

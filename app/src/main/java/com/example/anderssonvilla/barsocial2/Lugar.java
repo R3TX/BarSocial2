@@ -138,7 +138,8 @@ public class Lugar extends ActionBarActivity {
                  txtName.setText((String) parseObject.get("Name"));
                  txtCategoria.setText((String) parseObject.get("Categoria"));
                  txtLocation.setText((String) parseObject.get("Direccion"));
-                 point = parseObject.getParseGeoPoint("Location");
+                 point = (ParseGeoPoint)parseObject.getParseGeoPoint("Location");
+
             }
         });
     }
