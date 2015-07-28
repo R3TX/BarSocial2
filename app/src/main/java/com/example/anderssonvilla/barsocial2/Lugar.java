@@ -22,7 +22,7 @@ import com.parse.ParseQuery;
 public class Lugar extends ActionBarActivity {
 
 
-    Button butonInfo,butonProductos,butonEventos;
+    Button butonInfo,butonProductos,butonEventos, btnMapa;
     TextView txtName, txtCategoria, txtLocation;
     ParseGeoPoint point;
 
@@ -33,6 +33,7 @@ public class Lugar extends ActionBarActivity {
         butonInfo = (Button) findViewById(R.id.btnMoreInfo);
         butonEventos = (Button) findViewById(R.id.btnEventos);
         butonProductos = (Button) findViewById(R.id.btnProducto);
+        btnMapa = (Button) findViewById(R.id.btnMapas);
         txtName = (TextView) findViewById(R.id.lugarName);
         txtLocation = (TextView) findViewById(R.id.lugarLocation);
         txtCategoria= (TextView) findViewById(R.id.lugarCategoria);
@@ -87,6 +88,13 @@ public class Lugar extends ActionBarActivity {
         }else if(i==1){
             intent = new Intent(this, Producto.class);
 
+        }else if(i ==2){
+            intent = new Intent(this, MapsActivity.class);
+            double lat = point.getLatitude();
+            double lon=point.getLongitude();
+            intent.putExtra("latitud", lat);
+            intent.putExtra("longitud",lon);
+            intent.putExtra("Name",txtName.getText());
         }
         startActivity(intent);
     }
@@ -108,6 +116,12 @@ public class Lugar extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 activity(1);
+            }
+        });
+        btnMapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity(2);
             }
         });
     }

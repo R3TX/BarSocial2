@@ -11,11 +11,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lugarName"
+        android:textSize="32sp"
+        android:layout_gravity="center"
+
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lugarCategoria"
+        android:textSize="32sp"
+        android:layout_gravity="center"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -27,7 +32,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnMoreInfo"
         android:text="Mas Informacion"
-        />
+        android:layout_gravity="center" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,7 +40,8 @@
         android:text="Productos"
         android:layout_below="@+id/btnEventos"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,6 +49,16 @@
         android:text="Eventos"
         android:layout_below="@+id/btnMoreInfo"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnMapas"
+        android:text="Ver Mapa"
+        android:layout_below="@+id/btnEventos"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

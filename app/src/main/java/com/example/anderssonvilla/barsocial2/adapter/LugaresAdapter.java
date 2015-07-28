@@ -47,7 +47,8 @@ public class LugaresAdapter extends BaseAdapter implements AdapterView.OnItemCli
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_lugares, null);
+            convertView
+                    = inflater.inflate(R.layout.item_lugares, null);
         }
         TextView nombreLugar = (TextView) convertView.findViewById(R.id.nombre);
         ParseObject lugar = lugares.get(position);
