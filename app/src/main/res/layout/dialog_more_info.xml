@@ -6,27 +6,62 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/infoDescription"/>
+        android:id="@+id/infoDescription"
+        android:text="Descripción"
+        android:layout_gravity="center"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/infoAddres"/>
+        android:id="@+id/infoDescriptionValue"
+        android:layout_below="@+id/infoDescription"
+        android:layout_alignParentRigth="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/infoHorario"/>
+        android:id="@+id/infoAddres"
+        android:text="Dirección"
+        android:layout_below="@+id/btnMoreInfo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"/>/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/infoHorario"
+        android:text="Horario"
+        android:layout_below="@+id/btnMoreInfo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/infoCreditCard"/>
+        android:id="@+id/infoCreditCard"
+        android:text="Tarjeta De credito"
+        android:layout_below="@+id/btnMoreInfo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/infoReservation"/>
+        android:id="@+id/infoReservation"
+        android:text="Reservaciones"
+        android:layout_below="@+id/btnMoreInfo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/infoOutDoor"/>
+        android:id="@+id/infoOutDoor"
+        android:text="Outdoor"
+        android:layout_below="@+id/btnMoreInfo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

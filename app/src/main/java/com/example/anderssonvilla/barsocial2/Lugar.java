@@ -17,6 +17,7 @@ import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 
 
 public class Lugar extends ActionBarActivity {
@@ -25,6 +26,7 @@ public class Lugar extends ActionBarActivity {
     Button butonInfo,butonProductos,butonEventos, btnMapa;
     TextView txtName, txtCategoria, txtLocation;
     ParseGeoPoint point;
+    ParseQuery<ParseObject> moreInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,15 +71,21 @@ public class Lugar extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void crearDialogo(){
+    public void crearDialogo() throws ParseException {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
+        ParseObject info = moreInfo.getFirst();
+
         builder.setView(inflater.inflate(R.layout.dialog_more_info, null));
         builder.create().show();
     }
-    public void activity(int i){
+    public void activity(int i) throws ParseException {
         if(i==3){
-            crearDialogo();
+            try {
+                crearDialogo();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             return;
         }
         Intent intent = null;
@@ -139,7 +147,7 @@ public class Lugar extends ActionBarActivity {
                  txtCategoria.setText((String) parseObject.get("Categoria"));
                  txtLocation.setText((String) parseObject.get("Direccion"));
                  point = (ParseGeoPoint)parseObject.getParseGeoPoint("Location");
-
+                    moreInfo = parseObject.getRelation("MoreInfo").getQuery();
             }
         });
     }
