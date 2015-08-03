@@ -4,30 +4,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".Categorias"
-    android:id="@+id/catLay">
-
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/radioGroup">
-        <RadioButton android:id="@+id/verEnMapa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ver En Mapa"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/verEnLista"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ver En Lista"
-            android:onClick="onRadioButtonClicked"/>
-    </RadioGroup>
+    android:id="@+id/catLay"
+    android:background="#5C6BC0">
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listViewCategorias"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/radioGroup" />
+        />
 
 </RelativeLayout>

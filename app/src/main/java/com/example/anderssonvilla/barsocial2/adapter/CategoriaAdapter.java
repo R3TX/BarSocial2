@@ -3,11 +3,13 @@ package com.example.anderssonvilla.barsocial2.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.anderssonvilla.barsocial2.Lugar;
@@ -19,23 +21,23 @@ import java.util.List;
 /**
  * Created by andersson.villa on 27/07/15.
  */
-public class LugaresAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
-    private List<ParseObject> lugares;
+public class CategoriaAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
+    String [] nameCategorias = new String[]{"Restaurante", "Bar", "Cafeteria"};
     private Activity context;
 
-    public LugaresAdapter(List<ParseObject> lugares, Activity context) {
-        this.lugares = lugares;
+    public CategoriaAdapter( Activity context) {
+
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return lugares.size();
+        return nameCategorias.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return lugares.get(position);
+        return nameCategorias[position];
     }
 
     @Override
@@ -52,17 +54,19 @@ public class LugaresAdapter extends BaseAdapter implements AdapterView.OnItemCli
         }
         TextView nombreLugar = (TextView) convertView.findViewById(R.id.nombre);
         TextView sobrenombre = (TextView) convertView.findViewById(R.id.sobrenombre);
-        ParseObject lugar = lugares.get(position);
-        nombreLugar.setText(lugar.getString("Name"));
-        sobrenombre.setText("oeeeeeeeeelo");
+        nombreLugar.setText(nameCategorias[position]);
+        sobrenombre.setText("Los mejores "+ nameCategorias[position]+" de la ciudad");
+        ImageView icon = (ImageView) convertView.findViewById(R.id.imageView);
+        String r = "src/main/res/drawable-xhdpi/" +nameCategorias[position].toLowerCase();
+        int[] bipmap = new int[]{R.drawable.restaurante,R.drawable.bar, R.drawable.cafeteria};
+        icon.setImageResource(bipmap[position]);
+
         return convertView;
     }
 
+
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Intent intent = new Intent(context, Lugar.class);
-        ParseObject lugar = lugares.get(i);
-        intent.putExtra("IDLugar", lugar.getObjectId());
-        context.startActivity(intent);
+
     }
 }

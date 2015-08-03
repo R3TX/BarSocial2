@@ -6,31 +6,30 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.anderssonvilla.barsocial2.adapter.CategoriaAdapter;
+
 
 public class Categorias extends ActionBarActivity {
 
     private ListView categorias;
-    String [] nameCategorias = new String[]{"Restaurante", "Bar", "Cafeteria"};
-    Boolean verMapa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorias);
         categorias = (ListView) findViewById(R.id.listViewCategorias);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, nameCategorias);
+        CategoriaAdapter adapter = new CategoriaAdapter(Categorias.this);
         categorias.setAdapter(adapter);
         categorias.setOnItemClickListener(mMessageClickedHandler);
-        verMapa = false;
-        RadioButton rb = (RadioButton) findViewById(R.id.verEnLista);
-        rb.setChecked(true);
     }
 
 
@@ -58,40 +57,17 @@ public class Categorias extends ActionBarActivity {
     private AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView<?> parent, View view,
                                 int position, long id) {
-            TextView textView = (TextView) view.findViewById(android.R.id.text1);
+            TextView textView = (TextView) view.findViewById(R.id.nombre);
             String text = textView.getText().toString();
             // String text = (getItemAtPosition(position));
             Intent intent;
-            if(verMapa==true) {
-               intent = new Intent(Categorias.this, MapsActivity.class);
-                intent.putExtra("varios", true );
-            }else{
-                intent = new Intent(Categorias.this, Lugares.class);
-            }
+            intent = new Intent(Categorias.this, Lugares.class);
             intent.putExtra("categoria", text);
-
             startActivity(intent);
         }
 
 
     };
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
 
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.verEnLista:
-                if (checked)
-                    verMapa=false;
-
-                    break;
-            case R.id.verEnMapa:
-                if (checked)
-                    verMapa=true;
-
-                    break;
-        }
-    }
 }

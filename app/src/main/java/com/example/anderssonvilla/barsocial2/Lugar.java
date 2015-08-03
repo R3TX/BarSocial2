@@ -12,12 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
+
+import java.util.List;
 
 
 public class Lugar extends ActionBarActivity {
@@ -27,13 +30,14 @@ public class Lugar extends ActionBarActivity {
     TextView txtName, txtCategoria, txtLocation;
     ParseGeoPoint point;
     ParseQuery<ParseObject> moreInfo;
+    String value1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lugar);
         Bundle b = getIntent().getExtras();
-        ParseObject lugar = (ParseObject) b.get("LugarParse");
+        ParseObject lugar = (ParseObject) b.get("Lugar");
         butonInfo = (Button) findViewById(R.id.btnMoreInfo);
         butonEventos = (Button) findViewById(R.id.btnEventos);
         butonProductos = (Button) findViewById(R.id.btnProducto);
@@ -43,7 +47,7 @@ public class Lugar extends ActionBarActivity {
         txtCategoria= (TextView) findViewById(R.id.lugarCategoria);
         ponerListener();
         Bundle extras = getIntent().getExtras();
-        String value1  =extras.getString("IDLugar");
+        value1  =extras.getString("IDLugar");
         getLugar(value1);
 
 
@@ -94,6 +98,7 @@ public class Lugar extends ActionBarActivity {
 
         if(i==0){
             intent = new Intent(this, Eventos.class);
+            intent.putExtra("idLugar", value1);
 
         }else if(i==1){
             intent = new Intent(this, Producto.class);
@@ -166,6 +171,13 @@ public class Lugar extends ActionBarActivity {
                  txtLocation.setText((String) parseObject.get("Direccion"));
                  point = (ParseGeoPoint)parseObject.getParseGeoPoint("Location");
                     moreInfo = parseObject.getRelation("MoreInfo").getQuery();
+                moreInfo.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> parseObjects2, ParseException e) {
+
+                    }
+                });
+
             }
         });
     }
