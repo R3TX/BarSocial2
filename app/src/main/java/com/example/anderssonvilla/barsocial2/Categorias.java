@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ public class Categorias extends ActionBarActivity {
 
     private ListView categorias;
     String [] nameCategorias = new String[]{"Restaurante", "Bar", "Cafeteria"};
+    Boolean verMapa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,9 @@ public class Categorias extends ActionBarActivity {
                 android.R.layout.simple_list_item_1, nameCategorias);
         categorias.setAdapter(adapter);
         categorias.setOnItemClickListener(mMessageClickedHandler);
+        verMapa = false;
+        RadioButton rb = (RadioButton) findViewById(R.id.verEnLista);
+        rb.setChecked(true);
     }
 
 
@@ -56,11 +61,37 @@ public class Categorias extends ActionBarActivity {
             TextView textView = (TextView) view.findViewById(android.R.id.text1);
             String text = textView.getText().toString();
             // String text = (getItemAtPosition(position));
-            Intent intent = new Intent(Categorias.this, Lugares.class);
+            Intent intent;
+            if(verMapa==true) {
+               intent = new Intent(Categorias.this, MapsActivity.class);
+                intent.putExtra("varios", true );
+            }else{
+                intent = new Intent(Categorias.this, Lugares.class);
+            }
             intent.putExtra("categoria", text);
+
             startActivity(intent);
         }
 
 
     };
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.verEnLista:
+                if (checked)
+                    verMapa=false;
+
+                    break;
+            case R.id.verEnMapa:
+                if (checked)
+                    verMapa=true;
+
+                    break;
+        }
+    }
 }

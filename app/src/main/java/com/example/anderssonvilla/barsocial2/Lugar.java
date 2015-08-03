@@ -32,6 +32,8 @@ public class Lugar extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lugar);
+        Bundle b = getIntent().getExtras();
+        ParseObject lugar = (ParseObject) b.get("LugarParse");
         butonInfo = (Button) findViewById(R.id.btnMoreInfo);
         butonEventos = (Button) findViewById(R.id.btnEventos);
         butonProductos = (Button) findViewById(R.id.btnProducto);
@@ -111,25 +113,41 @@ public class Lugar extends ActionBarActivity {
         butonInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity(3);
+                try {
+                    activity(3);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
         butonEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity(0);
+                try {
+                    activity(0);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
         butonProductos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity(1);
+                try {
+                    activity(1);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
         btnMapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity(2);
+                try {
+                    activity(2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
