@@ -6,7 +6,40 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.anderssonvilla.barsocial2.Evento"
     android:background="#5C6BC0">
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/eventoName"
+    android:gravity="center"
+        android:textSize="17dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventoDescrip"
+        android:gravity="center"
+        android:textSize="17dp"
+        android:layout_toRightOf="@+id/eventoName"
+        android:layout_toEndOf="@+id/eventoName"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventoDate"
+        android:gravity="center"
+        android:textSize="17dp"
+        android:layout_toRightOf="@+id/eventoDescrip"
+        android:layout_toEndOf="@+id/eventoDescrip"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View On Map"
+        android:id="@+id/buttonEvento"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/eventoDate"
+        android:layout_toEndOf="@+id/eventoDate"
+        android:layout_marginLeft="89dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginBottom="90dp" />
 
 
 </RelativeLayout>

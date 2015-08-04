@@ -7,14 +7,18 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.anderssonvilla.barsocial2.adapter.CategoriaAdapter;
 import com.example.anderssonvilla.barsocial2.adapter.LugaresAdapter;
+import com.example.anderssonvilla.barsocial2.adapter.eventoAdapter;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -23,12 +27,18 @@ import java.util.List;
 
 public class Eventos extends ActionBarActivity {
     ListView eventos;
+    String value;
+
+    List<ParseObject> eventosAEscoger;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eventos);
         eventos = (ListView) findViewById(R.id.listViewEvento);
+        Bundle b = getIntent().getExtras();
 
+        value = (String) b.get("idLugar");
+        getEventos();
 
     }
 
@@ -70,21 +80,26 @@ public class Eventos extends ActionBarActivity {
 
     };
 
-    private void getListaLugaresPorCategoria(String categoria) throws ParseException {
+    private void getEventos() {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lugar");
-        query
-        final ProgressDialog dialog = ProgressDialog.show(Eventos.this, "Buscando Los proximos eventos", null, true, true);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> eventosList, ParseException e) {
-                if(e==null){
-                    dialog.dismiss();
-                    LugaresAdapter adapter= new LugaresAdapter(eventosList, Eventos.this);
-                    eventos.setAdapter(adapter);
-                    eventos.setOnItemClickListener(mMessageClickedHandler);
-                }else{
-                    System.out.println("no di " + e.getMessage());
-                }
+        final ProgressDialog dialog = ProgressDialog.show(Eventos.this, "Cargando Eventos", null, true, true);
+        query.getInBackground(value, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+
+                dialog.dismiss();
+                ParseQuery<ParseObject> moreEvento = parseObject.getRelation("idEvento").getQuery();
+                moreEvento.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> parseObjects2, ParseException e) {
+                        eventosAEscoger = parseObjects2;
+                        eventoAdapter adapter = new eventoAdapter(parseObjects2,Eventos.this);
+                        eventos.setAdapter(adapter);
+                        eventos.setOnItemClickListener(adapter);
+                    }
+                });
+
             }
         });
     }

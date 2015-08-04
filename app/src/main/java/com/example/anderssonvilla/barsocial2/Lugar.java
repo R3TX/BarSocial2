@@ -1,6 +1,7 @@
 package com.example.anderssonvilla.barsocial2;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +10,15 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.anderssonvilla.barsocial2.adapter.dialogAdapter;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
@@ -30,6 +35,7 @@ public class Lugar extends ActionBarActivity {
     TextView txtName, txtCategoria, txtLocation;
     ParseGeoPoint point;
     ParseQuery<ParseObject> moreInfo;
+    List<ParseObject>moreinfo2;
     String value1;
 
     @Override
@@ -78,13 +84,60 @@ public class Lugar extends ActionBarActivity {
     }
 
     public void crearDialogo() throws ParseException {
+/*
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog);
+
+        ListView lv = (ListView ) dialog.findViewById(R.id.listView);
+        lv.setAdapter(new dialogAdapter(moreinfo2,this));
+        dialog.setCancelable(true);
+        dialog.setTitle("ListView");
+        dialog.show();
+*/
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
-        ParseObject info = moreInfo.getFirst();
+        View v = inflater.inflate(R.layout.dialog_more_info, (ViewGroup) this.getCurrentFocus());
 
-        builder.setView(inflater.inflate(R.layout.dialog_more_info, null));
+        ParseObject info = moreinfo2.get(0);
+
+        TextView descrip, direc, hora, tarjeta, outdor, reserva;
+
+        descrip = (TextView) v.findViewById(R.id.infoDescriptionValue);
+        descrip.setText(info.getString("Description").toString());
+
+        direc = (TextView) v.findViewById(R.id.infoAddresValue);
+        direc.setText(info.getString("Addres").toString());
+
+
+        hora = (TextView) v.findViewById(R.id.infoHorarioValue);
+        hora.setText(info.getString("Horario").toString());
+
+        tarjeta = (TextView) v.findViewById(R.id.infoCreditCardValue);
+        tarjeta.setText(String.valueOf(info.getBoolean("CreditCard")));
+
+        reserva = (TextView) v.findViewById(R.id.infoReservationValue);
+        reserva.setText(String.valueOf(info.getBoolean("Reservation")));
+
+
+
+        outdor = (TextView) v.findViewById(R.id.infoOutDoorValue);
+        outdor.setText(String.valueOf(info.getBoolean("Outdoor")));
+
+
+
+
+        builder.setView(v);
+
+
+
+
+
         builder.create().show();
+
     }
+
+
     public void activity(int i) throws ParseException {
         if(i==3){
             try {
@@ -102,6 +155,7 @@ public class Lugar extends ActionBarActivity {
 
         }else if(i==1){
             intent = new Intent(this, Producto.class);
+            intent.putExtra("idLugar",value1);
 
         }else if(i ==2){
             intent = new Intent(this, MapsActivity.class);
@@ -170,11 +224,12 @@ public class Lugar extends ActionBarActivity {
                  txtCategoria.setText((String) parseObject.get("Categoria"));
                  txtLocation.setText((String) parseObject.get("Direccion"));
                  point = (ParseGeoPoint)parseObject.getParseGeoPoint("Location");
-                    moreInfo = parseObject.getRelation("MoreInfo").getQuery();
-                moreInfo.findInBackground(new FindCallback<ParseObject>() {
+                    moreInfo = parseObject.getRelation("idInfo").getQuery();
+                    moreInfo.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> parseObjects2, ParseException e) {
-
+                                System.out.println("\n\n\n"+parseObjects2.size());
+                                moreinfo2 = parseObjects2;
                     }
                 });
 
